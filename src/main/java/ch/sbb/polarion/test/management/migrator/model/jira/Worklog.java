@@ -27,7 +27,7 @@ public class Worklog {
     @JsonProperty("total")
     public Long total;
     @JsonProperty("worklogs")
-    public List<Worklog__1> worklogs = null;
+    public List<WorklogEntry> worklogs = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<>();
 

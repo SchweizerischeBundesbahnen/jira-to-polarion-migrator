@@ -24,7 +24,7 @@ import java.util.Map;
         "id",
         "issueId"
 })
-public class Worklog__1 {
+public class WorklogEntry {
 
     @JsonProperty("self")
     public String self;

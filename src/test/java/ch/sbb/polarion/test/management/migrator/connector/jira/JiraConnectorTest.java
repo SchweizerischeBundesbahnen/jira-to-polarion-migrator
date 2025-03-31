@@ -65,9 +65,7 @@ class JiraConnectorTest extends BaseMockServerClass {
         String issuesKey = "(key=TESTPRJ-100)";
         mockCallToJiraWithError("mockserver/responses/connector/jira/TESTPRJ100.json", issuesKey);
 
-        RuntimeException thrown = Assertions.assertThrows(RuntimeException.class, () -> {
-            JiraIssues issues = connector.queryIssues(issuesKey);
-        });
+        RuntimeException thrown = Assertions.assertThrows(RuntimeException.class, () -> connector.queryIssues(issuesKey));
 
         Assertions.assertEquals("Could not get response from Jira", thrown.getMessage());
     }

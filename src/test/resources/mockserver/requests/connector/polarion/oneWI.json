@@ -1,0 +1,18 @@
+{
+  "data": [
+    {
+      "type": "workitems",
+      "attributes": {
+        "type": "testcase",
+        "title": "README.md file for Polarion plugin",
+        "description": {
+          "type": "text/html",
+          "value": "<p><b>We want to have a descriptions for:</b></p>\n<ul>\n\t<li>how to build Polarion plugin using Eclipse</li>\n\t<li>how to build Polarion plugin using maven</li>\n\t<li>where to place the Polarion plugin</li>\n\t<li>how to add Test Case Form extension</li>\n\t<li>Debug from IDEA</li>\n</ul>\n\n\n<p> </p>"
+        },
+        "severity": "normal",
+        "priority": "40",
+        "status": "Draft"
+      }
+    }
+  ]
+}

@@ -35,7 +35,9 @@ public class JqlBuilder {
             throw new InvalidMigratorConfigurationException("jira.query.keys is empty");
         }
 
-        List<String> issues = Arrays.asList(jiraQueryKeys.split("\\s*,\\s*"));
+        List<String> issues = Arrays.stream(jiraQueryKeys.split(","))
+                .map(String::trim)
+                .toList();
         if (issues.isEmpty()) {
             throw new InvalidMigratorConfigurationException("jira.query.keys is not in CSV format");
         }

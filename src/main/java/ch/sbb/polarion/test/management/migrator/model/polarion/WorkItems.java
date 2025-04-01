@@ -1,17 +1,14 @@
 package ch.sbb.polarion.test.management.migrator.model.polarion;
 
 import ch.sbb.polarion.test.management.migrator.config.MigratorConfig;
+import ch.sbb.polarion.test.management.migrator.model.CommonProperties;
 import ch.sbb.polarion.test.management.migrator.model.jira.Issue;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +17,7 @@ import java.util.Map;
         "data"
 })
 @Data
-public class WorkItems {
+public class WorkItems extends CommonProperties {
 
     public static final Map<String, String> PRIORITY_MAP = Map.of(
             "Trivial", "20",
@@ -32,18 +29,6 @@ public class WorkItems {
 
     @JsonProperty("data")
     private List<WorkItem> data = new ArrayList<>();
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<>();
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
 
     public void fromJiraIssues(List<Issue> issues) {
         for (Issue issue : issues) {
@@ -55,21 +40,21 @@ public class WorkItems {
 
             workItem.getAttributes().setTitle(issue.fields.summary);
             workItem.getAttributes().setDescription(description);
-            workItem.getAttributes().setType(MigratorConfig.getInstance().getPolarionTestCaseType());
-            workItem.getAttributes().setTestType(MigratorConfig.getInstance().getPolarionTestCaseTesttype());
-            workItem.getAttributes().setSeverity(MigratorConfig.getInstance().getPolarionTestCaseSeverity());
+            workItem.getAttributes().setType(MigratorConfig.getPolarionTestCaseType());
+            workItem.getAttributes().setTestType(MigratorConfig.getPolarionTestCaseTesttype());
+            workItem.getAttributes().setSeverity(MigratorConfig.getPolarionTestCaseSeverity());
             if (issue.fields.priority != null && PRIORITY_MAP.containsKey(issue.fields.priority.name)) {
                 workItem.getAttributes().setPriority(PRIORITY_MAP.get(issue.fields.priority.name));
             }
-            workItem.getAttributes().setStatus(MigratorConfig.getInstance().getPolarionTestCaseStatus());
+            workItem.getAttributes().setStatus(MigratorConfig.getPolarionTestCaseStatus());
 
-            String polarionTestCaseCustomFieldJiraIssueId = MigratorConfig.getInstance().getPolarionTestCaseCustomFieldJiraIssueId();
+            String polarionTestCaseCustomFieldJiraIssueId = MigratorConfig.getPolarionTestCaseCustomFieldJiraIssueId();
             if (polarionTestCaseCustomFieldJiraIssueId != null) {
                 workItem.getAttributes().setAdditionalProperty(polarionTestCaseCustomFieldJiraIssueId, issue.key);
             }
-            String polarionTestCaseCustomFieldJiraIssueUrl = MigratorConfig.getInstance().getPolarionTestCaseCustomFieldJiraIssueUrl();
+            String polarionTestCaseCustomFieldJiraIssueUrl = MigratorConfig.getPolarionTestCaseCustomFieldJiraIssueUrl();
             if (polarionTestCaseCustomFieldJiraIssueUrl != null) {
-                workItem.getAttributes().setAdditionalProperty(polarionTestCaseCustomFieldJiraIssueUrl, MigratorConfig.getInstance().getJiraBaseUrl() + "/browse/" + issue.key);
+                workItem.getAttributes().setAdditionalProperty(polarionTestCaseCustomFieldJiraIssueUrl, MigratorConfig.getJiraBaseUrl() + "/browse/" + issue.key);
             }
 
             data.add(workItem);

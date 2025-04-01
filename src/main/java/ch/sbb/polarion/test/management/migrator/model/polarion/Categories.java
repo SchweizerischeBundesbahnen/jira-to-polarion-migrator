@@ -1,5 +1,6 @@
 package ch.sbb.polarion.test.management.migrator.model.polarion;
 
+import ch.sbb.polarion.test.management.migrator.model.CommonProperties;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -17,7 +18,7 @@ import java.util.Map;
         "data"
 })
 @Data
-public class Categories {
+public class Categories extends CommonProperties {
 
     @JsonProperty("data")
     private List<Datum> data = null;

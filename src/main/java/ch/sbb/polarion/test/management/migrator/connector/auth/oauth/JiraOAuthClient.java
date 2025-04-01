@@ -15,10 +15,10 @@ public class JiraOAuthClient {
     public String getToken() {
         try {
             OAuthClientRequest oAuthClientRequest = OAuthClientRequest
-                    .tokenLocation(MigratorConfig.getInstance().getJiraSecurityOAuthTokenRequestUrl())
+                    .tokenLocation(MigratorConfig.getJiraSecurityOAuthTokenRequestUrl())
                     .setGrantType(GrantType.CLIENT_CREDENTIALS)
-                    .setClientId(MigratorConfig.getInstance().getJiraSecurityOAuthClientId())
-                    .setClientSecret(MigratorConfig.getInstance().getJiraSecurityOAuthClientSecret())
+                    .setClientId(MigratorConfig.getJiraSecurityOAuthClientId())
+                    .setClientSecret(MigratorConfig.getJiraSecurityOAuthClientSecret())
                     .buildBodyMessage();
 
             OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());

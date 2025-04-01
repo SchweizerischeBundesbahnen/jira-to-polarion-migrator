@@ -1,15 +1,10 @@
 package ch.sbb.polarion.test.management.migrator.model.jira;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import ch.sbb.polarion.test.management.migrator.model.CommonProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -87,7 +82,7 @@ import java.util.Map;
         "duedate",
         "progress"
 })
-public class RenderedFields {
+public class RenderedFields extends CommonProperties {
 
     @JsonProperty("issuetype")
     private Object issuetype;
@@ -233,16 +228,4 @@ public class RenderedFields {
     private Object duedate;
     @JsonProperty("progress")
     private Object progress;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<>();
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
 }

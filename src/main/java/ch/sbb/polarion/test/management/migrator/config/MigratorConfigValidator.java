@@ -3,7 +3,6 @@ package ch.sbb.polarion.test.management.migrator.config;
 import ch.sbb.polarion.test.management.migrator.exception.InvalidMigratorConfigurationException;
 import lombok.experimental.UtilityClass;
 
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -56,9 +55,5 @@ public class MigratorConfigValidator {
     private static void validateObligatoryProperties(Properties properties, List<String> propertyList) {
         propertyList
                 .forEach(property -> validateObligatoryProperty(properties, property));
-    }
-
-    public static String getPropertiesPath() {
-        return Paths.get("").toAbsolutePath().toString();
     }
 }

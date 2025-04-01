@@ -1,5 +1,6 @@
 package ch.sbb.polarion.test.management.migrator.model.polarion;
 
+import ch.sbb.polarion.test.management.migrator.model.CommonProperties;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -15,7 +16,7 @@ import java.util.Map;
         "data"
 })
 @lombok.Data
-public class Author {
+public class Author extends CommonProperties {
 
     @JsonProperty("data")
     private Data data;

@@ -46,7 +46,7 @@ class WorkItemsTest {
         specificProperties.setProperty("polarion.target.project", PROJECT_ID);
         specificProperties.setProperty("polarion.test.case.custom.field.jira.issue.id", polarionCustomFieldJiraIssueId);
         specificProperties.setProperty("polarion.test.case.custom.field.jira.issue.url", polarionCustomFieldJiraIssueUrl);
-        MigratorConfig.getInstance().setProperties(specificProperties);
+        MigratorConfig.setProperties(specificProperties);
 
         String content;
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filename)) {

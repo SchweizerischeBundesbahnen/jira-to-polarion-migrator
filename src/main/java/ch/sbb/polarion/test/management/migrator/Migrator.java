@@ -1,7 +1,6 @@
 package ch.sbb.polarion.test.management.migrator;
 
 import ch.sbb.polarion.test.management.migrator.config.MigratorConfig;
-import ch.sbb.polarion.test.management.migrator.config.MigratorConfigValidator;
 import ch.sbb.polarion.test.management.migrator.connector.jira.JiraConnector;
 import ch.sbb.polarion.test.management.migrator.connector.jira.jql.JqlBuilder;
 import ch.sbb.polarion.test.management.migrator.connector.polarion.PolarionConnector;
@@ -32,7 +31,7 @@ public class Migrator {
     public static final String JIRA_TO_POLARION_MAPPING = "jira-to-polarion.mapping";
 
     public static void main(String[] args) throws IOException {
-        MigratorConfig.getInstance().loadConfig();
+        MigratorConfig.loadConfig();
 
         deleteMappingFile();
         Map<String, String> jiraIssueToPolarionWorkItemMapping = new HashMap<>();
@@ -78,7 +77,7 @@ public class Migrator {
     }
 
     private static String getMappingFile() {
-        return MigratorConfigValidator.getPropertiesPath() + File.separator + JIRA_TO_POLARION_MAPPING;
+        return MigratorConfig.getConfigurationPath() + File.separator + JIRA_TO_POLARION_MAPPING;
     }
 
     private static void saveMappingToFile(Map<String, String> jiraIssueToPolarionWorkItemMapping) throws IOException {

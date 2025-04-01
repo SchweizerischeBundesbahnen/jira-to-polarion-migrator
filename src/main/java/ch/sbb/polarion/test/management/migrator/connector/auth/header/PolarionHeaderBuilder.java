@@ -8,6 +8,6 @@ public class PolarionHeaderBuilder implements HeaderBuilder {
 
     @Override
     public Header build() {
-        return new BearerAuthHeader(MigratorConfig.getInstance().getPolarionSecurityAccessToken());
+        return new BearerAuthHeader(MigratorConfig.getPolarionSecurityAccessToken());
     }
 }

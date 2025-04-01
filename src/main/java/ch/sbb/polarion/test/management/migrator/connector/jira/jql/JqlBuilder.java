@@ -18,12 +18,12 @@ public class JqlBuilder {
     public static final String OR = " OR ";
 
     public String build() {
-        JiraQueryType jiraQueryType = MigratorConfig.getInstance().getJiraQueryType();
+        JiraQueryType jiraQueryType = MigratorConfig.getJiraQueryType();
 
         if (Objects.requireNonNull(jiraQueryType) == JiraQueryType.JQL) {
-            return MigratorConfig.getInstance().getJiraQueryJql();
+            return MigratorConfig.getJiraQueryJql();
         } else if (jiraQueryType == JiraQueryType.KEYS) {
-            String jiraQueryKeys = MigratorConfig.getInstance().getJiraQueryKeys();
+            String jiraQueryKeys = MigratorConfig.getJiraQueryKeys();
             return toJql(jiraQueryKeys);
         }
 

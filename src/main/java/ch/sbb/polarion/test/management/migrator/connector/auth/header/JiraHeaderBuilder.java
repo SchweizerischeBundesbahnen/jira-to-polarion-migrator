@@ -10,11 +10,11 @@ import lombok.AllArgsConstructor;
 public class JiraHeaderBuilder implements HeaderBuilder {
 
     private static BasicAuthHeader createBasicAuthHeader() {
-        return new BasicAuthHeader(MigratorConfig.getInstance().getJiraSecurityUsername(), MigratorConfig.getInstance().getJiraSecurityPassword());
+        return new BasicAuthHeader(MigratorConfig.getJiraSecurityUsername(), MigratorConfig.getJiraSecurityPassword());
     }
 
     private static BearerAuthHeader createBearerAuthHeader() {
-        return new BearerAuthHeader(MigratorConfig.getInstance().getJiraSecurityPersonalAccessToken());
+        return new BearerAuthHeader(MigratorConfig.getJiraSecurityPersonalAccessToken());
     }
 
     private static BearerAuthHeader createOAuthBearerAuthHeader() {
@@ -24,16 +24,12 @@ public class JiraHeaderBuilder implements HeaderBuilder {
 
     @Override
     public Header build() {
-        JiraSecurityType jiraSecurityType = MigratorConfig.getInstance().getJiraSecurityType();
-        switch (jiraSecurityType) {
-            case BASIC:
-                return createBasicAuthHeader();
-            case BEARER:
-                return createBearerAuthHeader();
-            case OAUTH:
-                return createOAuthBearerAuthHeader();
-            default:
-                throw new InvalidMigratorConfigurationException("Not supported auth type provided");
-        }
+        JiraSecurityType jiraSecurityType = MigratorConfig.getJiraSecurityType();
+        return switch (jiraSecurityType) {
+            case BASIC -> createBasicAuthHeader();
+            case BEARER -> createBearerAuthHeader();
+            case OAUTH -> createOAuthBearerAuthHeader();
+            default -> throw new InvalidMigratorConfigurationException("Not supported auth type provided");
+        };
     }
 }

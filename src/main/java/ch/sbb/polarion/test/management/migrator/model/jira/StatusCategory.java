@@ -1,5 +1,6 @@
 package ch.sbb.polarion.test.management.migrator.model.jira;
 
+import ch.sbb.polarion.test.management.migrator.model.CommonProperties;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,7 +19,7 @@ import java.util.Map;
         "colorName",
         "name"
 })
-public class StatusCategory {
+public class StatusCategory extends CommonProperties {
 
     @JsonProperty("self")
     public String self;

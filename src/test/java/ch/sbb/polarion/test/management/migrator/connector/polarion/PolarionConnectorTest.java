@@ -29,7 +29,7 @@ class PolarionConnectorTest extends BaseMockServerClass {
 
     public PolarionConnectorTest() throws IOException {
         Properties specificProperties = getSpecificProperties("mockserver/mockserver-config-polarion.properties");
-        MigratorConfig.getInstance().setProperties(specificProperties);
+        MigratorConfig.setProperties(specificProperties);
     }
 
     @Test

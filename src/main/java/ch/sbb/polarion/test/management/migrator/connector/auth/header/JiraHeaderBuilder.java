@@ -10,11 +10,11 @@ import lombok.AllArgsConstructor;
 public class JiraHeaderBuilder implements HeaderBuilder {
 
     private static BasicAuthHeader createBasicAuthHeader() {
-        return new BasicAuthHeader(MigratorConfig.getJiraSecurityUsername(), MigratorConfig.getJiraSecurityPassword());
+        return new BasicAuthHeader(MigratorConfig.INSTANCE.getJiraSecurityUsername(), MigratorConfig.INSTANCE.getJiraSecurityPassword());
     }
 
     private static BearerAuthHeader createBearerAuthHeader() {
-        return new BearerAuthHeader(MigratorConfig.getJiraSecurityPersonalAccessToken());
+        return new BearerAuthHeader(MigratorConfig.INSTANCE.getJiraSecurityPersonalAccessToken());
     }
 
     private static BearerAuthHeader createOAuthBearerAuthHeader() {
@@ -24,7 +24,7 @@ public class JiraHeaderBuilder implements HeaderBuilder {
 
     @Override
     public Header build() {
-        JiraSecurityType jiraSecurityType = MigratorConfig.getJiraSecurityType();
+        JiraSecurityType jiraSecurityType = MigratorConfig.INSTANCE.getJiraSecurityType();
         return switch (jiraSecurityType) {
             case BASIC -> createBasicAuthHeader();
             case BEARER -> createBearerAuthHeader();

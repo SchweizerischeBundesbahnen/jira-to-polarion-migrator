@@ -64,11 +64,11 @@ class MigratorConfigTest {
         for (Map.Entry<String, String> stringStringEntry : values.entrySet()) {
             specificProperties.setProperty(stringStringEntry.getKey(), stringStringEntry.getValue());
         }
-        MigratorConfig.setProperties(specificProperties);
+        MigratorConfig.INSTANCE.setProperties(specificProperties);
 
-        Assertions.assertEquals(expected.get(POLARION_TEST_CASE_TYPE), getPolarionTestCaseType());
-        Assertions.assertEquals(expected.get(POLARION_TEST_CASE_TESTTYPE), MigratorConfig.getPolarionTestCaseTesttype());
-        Assertions.assertEquals(expected.get(POLARION_TEST_CASE_STATUS), MigratorConfig.getPolarionTestCaseStatus());
-        Assertions.assertEquals(expected.get(POLARION_TEST_CASE_SEVERITY), MigratorConfig.getPolarionTestCaseSeverity());
+        Assertions.assertEquals(expected.get(POLARION_TEST_CASE_TYPE), INSTANCE.getPolarionTestCaseType());
+        Assertions.assertEquals(expected.get(POLARION_TEST_CASE_TESTTYPE), MigratorConfig.INSTANCE.getPolarionTestCaseTesttype());
+        Assertions.assertEquals(expected.get(POLARION_TEST_CASE_STATUS), MigratorConfig.INSTANCE.getPolarionTestCaseStatus());
+        Assertions.assertEquals(expected.get(POLARION_TEST_CASE_SEVERITY), MigratorConfig.INSTANCE.getPolarionTestCaseSeverity());
     }
 }

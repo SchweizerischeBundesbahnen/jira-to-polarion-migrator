@@ -40,21 +40,21 @@ public class WorkItems extends CommonProperties {
 
             workItem.getAttributes().setTitle(issue.fields.summary);
             workItem.getAttributes().setDescription(description);
-            workItem.getAttributes().setType(MigratorConfig.getPolarionTestCaseType());
-            workItem.getAttributes().setTestType(MigratorConfig.getPolarionTestCaseTesttype());
-            workItem.getAttributes().setSeverity(MigratorConfig.getPolarionTestCaseSeverity());
+            workItem.getAttributes().setType(MigratorConfig.INSTANCE.getPolarionTestCaseType());
+            workItem.getAttributes().setTestType(MigratorConfig.INSTANCE.getPolarionTestCaseTesttype());
+            workItem.getAttributes().setSeverity(MigratorConfig.INSTANCE.getPolarionTestCaseSeverity());
             if (issue.fields.priority != null && PRIORITY_MAP.containsKey(issue.fields.priority.name)) {
                 workItem.getAttributes().setPriority(PRIORITY_MAP.get(issue.fields.priority.name));
             }
-            workItem.getAttributes().setStatus(MigratorConfig.getPolarionTestCaseStatus());
+            workItem.getAttributes().setStatus(MigratorConfig.INSTANCE.getPolarionTestCaseStatus());
 
-            String polarionTestCaseCustomFieldJiraIssueId = MigratorConfig.getPolarionTestCaseCustomFieldJiraIssueId();
+            String polarionTestCaseCustomFieldJiraIssueId = MigratorConfig.INSTANCE.getPolarionTestCaseCustomFieldJiraIssueId();
             if (polarionTestCaseCustomFieldJiraIssueId != null) {
                 workItem.getAttributes().setAdditionalProperty(polarionTestCaseCustomFieldJiraIssueId, issue.key);
             }
-            String polarionTestCaseCustomFieldJiraIssueUrl = MigratorConfig.getPolarionTestCaseCustomFieldJiraIssueUrl();
+            String polarionTestCaseCustomFieldJiraIssueUrl = MigratorConfig.INSTANCE.getPolarionTestCaseCustomFieldJiraIssueUrl();
             if (polarionTestCaseCustomFieldJiraIssueUrl != null) {
-                workItem.getAttributes().setAdditionalProperty(polarionTestCaseCustomFieldJiraIssueUrl, MigratorConfig.getJiraBaseUrl() + "/browse/" + issue.key);
+                workItem.getAttributes().setAdditionalProperty(polarionTestCaseCustomFieldJiraIssueUrl, MigratorConfig.INSTANCE.getJiraBaseUrl() + "/browse/" + issue.key);
             }
 
             data.add(workItem);

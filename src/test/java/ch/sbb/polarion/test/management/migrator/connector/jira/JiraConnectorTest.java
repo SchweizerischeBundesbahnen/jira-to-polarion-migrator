@@ -24,7 +24,7 @@ class JiraConnectorTest extends BaseMockServerClass {
 
     public JiraConnectorTest() throws IOException {
         Properties specificProperties = getSpecificProperties("mockserver/mockserver-config-jira.properties");
-        MigratorConfig.setProperties(specificProperties);
+        MigratorConfig.INSTANCE.setProperties(specificProperties);
         connector = new JiraConnector();
     }
 

@@ -31,7 +31,7 @@ public class PolarionConnector {
     }
 
     public WorkItems importWorkItems(WorkItems workItems) {
-        String workItemsEndpoint = String.format("%s/polarion/rest/v1/projects/%s/workitems", MigratorConfig.getPolarionBaseUrl(), MigratorConfig.getPolarionTargetProject());
+        String workItemsEndpoint = String.format("%s/polarion/rest/v1/projects/%s/workitems", MigratorConfig.INSTANCE.getPolarionBaseUrl(), MigratorConfig.INSTANCE.getPolarionTargetProject());
 
         try (Client client = ClientBuilder.newClient(new ClientConfig()).register(JacksonFeature.class)) {
             WebTarget webTarget = client.target(workItemsEndpoint);

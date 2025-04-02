@@ -43,7 +43,7 @@ public class JiraConnector {
     }
 
     public JiraIssues queryIssues(String query, long maxResults, long startAt) {
-        String searchEndpoint = String.format("%s/rest/api/latest/search", MigratorConfig.getJiraBaseUrl());
+        String searchEndpoint = String.format("%s/rest/api/latest/search", MigratorConfig.INSTANCE.getJiraBaseUrl());
 
         try (Client client = ClientBuilder.newClient(new ClientConfig())) {
             WebTarget webTarget = client.target(searchEndpoint)

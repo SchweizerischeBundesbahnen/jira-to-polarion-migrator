@@ -31,7 +31,7 @@ public class Migrator {
     public static final String JIRA_TO_POLARION_MAPPING = "jira-to-polarion.mapping";
 
     public static void main(String[] args) throws IOException {
-        MigratorConfig.loadConfig();
+        MigratorConfig.INSTANCE.loadConfig();
 
         deleteMappingFile();
         Map<String, String> jiraIssueToPolarionWorkItemMapping = new HashMap<>();
@@ -77,7 +77,7 @@ public class Migrator {
     }
 
     private static String getMappingFile() {
-        return MigratorConfig.getConfigurationPath() + File.separator + JIRA_TO_POLARION_MAPPING;
+        return MigratorConfig.INSTANCE.getConfigurationPath() + File.separator + JIRA_TO_POLARION_MAPPING;
     }
 
     private static void saveMappingToFile(Map<String, String> jiraIssueToPolarionWorkItemMapping) throws IOException {

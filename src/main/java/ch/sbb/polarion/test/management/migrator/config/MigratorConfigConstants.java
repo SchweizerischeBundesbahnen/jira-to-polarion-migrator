@@ -3,7 +3,7 @@ package ch.sbb.polarion.test.management.migrator.config;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MigratorConfigConstants {
     public static final String JIRA_TO_POLARION_MIGRATOR_PROPERTIES = "jira-to-polarion-migrator.properties";
 

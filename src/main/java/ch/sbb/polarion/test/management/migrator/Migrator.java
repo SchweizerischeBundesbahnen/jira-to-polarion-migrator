@@ -10,6 +10,7 @@ import ch.sbb.polarion.test.management.migrator.model.polarion.WorkItems;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.VisibleForTesting;
 
 import java.io.File;
 import java.io.IOException;
@@ -76,11 +77,13 @@ public class Migrator {
         }
     }
 
-    private static String getMappingFile() {
+    @VisibleForTesting
+    static String getMappingFile() {
         return migratorConfig.getConfigurationPath() + File.separator + JIRA_TO_POLARION_MAPPING;
     }
 
-    private static void saveMappingToFile(Map<String, String> jiraIssueToPolarionWorkItemMapping) throws IOException {
+    @VisibleForTesting
+    static void saveMappingToFile(Map<String, String> jiraIssueToPolarionWorkItemMapping) throws IOException {
         Map<String, String> sortedMap = new TreeMap<>(jiraIssueToPolarionWorkItemMapping);
 
         String mappingFile = getMappingFile();
@@ -93,7 +96,8 @@ public class Migrator {
     }
 
     @SneakyThrows
-    private static List<JiraIssues> getJiraIssues(MigratorConfig migratorConfig) {
+    @VisibleForTesting
+    static List<JiraIssues> getJiraIssues(MigratorConfig migratorConfig) {
         String jiraIssuesFromFile = System.getProperty(JIRA_ISSUES_FROM_FILE);
 
         if (jiraIssuesFromFile != null) {
@@ -103,7 +107,8 @@ public class Migrator {
         }
     }
 
-    private static List<JiraIssues> loadJiraIssuesFromFile(String filename) throws IOException {
+    @VisibleForTesting
+    static List<JiraIssues> loadJiraIssuesFromFile(String filename) throws IOException {
         log.info("Jira Issues will be loaded from provided file = '{}'", filename);
 
         Path path = Paths.get(filename);

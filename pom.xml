@@ -51,6 +51,7 @@
         <log4j.version>2.24.1</log4j.version>
         <mockserver.version>5.15.0</mockserver.version>
         <lombok.version>1.18.24</lombok.version>
+        <jetbrains.api.version>24.0.1</jetbrains.api.version>
         <oauth2.client.version>1.0.2</oauth2.client.version>
 
         <!-- Maven plugins -->
@@ -114,6 +115,13 @@
             <groupId>org.glassfish.jersey.inject</groupId>
             <artifactId>jersey-hk2</artifactId>
             <version>${jersey.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${jetbrains.api.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>

@@ -1,5 +1,9 @@
 package ch.sbb.polarion.test.management.migrator.config;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MigratorConfigConstants {
     public static final String JIRA_TO_POLARION_MIGRATOR_PROPERTIES = "jira-to-polarion-migrator.properties";
 

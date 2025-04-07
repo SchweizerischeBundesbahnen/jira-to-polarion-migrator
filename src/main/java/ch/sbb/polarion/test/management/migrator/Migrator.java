@@ -32,6 +32,7 @@ public class Migrator {
     public static final MigratorConfig migratorConfig = new MigratorConfig();
 
     public static void main(String[] args) throws IOException {
+        migratorConfig.loadConfig();
         deleteMappingFile();
         Map<String, String> jiraIssueToPolarionWorkItemMapping = new HashMap<>();
 

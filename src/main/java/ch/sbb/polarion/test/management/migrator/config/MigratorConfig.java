@@ -18,11 +18,7 @@ public class MigratorConfig extends MigratorConfigConstants {
 
     private Properties properties = new Properties();
 
-    public MigratorConfig() {
-        loadConfig();
-    }
-
-    private void loadConfig() {
+    public void loadConfig() {
         properties.clear();
 
         String config = getConfigurationPath() + File.separator + JIRA_TO_POLARION_MIGRATOR_PROPERTIES;

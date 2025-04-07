@@ -25,13 +25,15 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 public class PolarionConnector {
 
     private Header header;
+    private MigratorConfig migratorConfig;
 
-    public PolarionConnector() {
-        header = new PolarionHeaderBuilder().build();
+    public PolarionConnector(MigratorConfig migratorConfig) {
+        header = new PolarionHeaderBuilder().build(migratorConfig);
+        this.migratorConfig = migratorConfig;
     }
 
     public WorkItems importWorkItems(WorkItems workItems) {
-        String workItemsEndpoint = String.format("%s/polarion/rest/v1/projects/%s/workitems", MigratorConfig.INSTANCE.getPolarionBaseUrl(), MigratorConfig.INSTANCE.getPolarionTargetProject());
+        String workItemsEndpoint = String.format("%s/polarion/rest/v1/projects/%s/workitems", migratorConfig.getPolarionBaseUrl(), migratorConfig.getPolarionTargetProject());
 
         try (Client client = ClientBuilder.newClient(new ClientConfig()).register(JacksonFeature.class)) {
             WebTarget webTarget = client.target(workItemsEndpoint);

@@ -46,7 +46,8 @@ class WorkItemsTest {
         specificProperties.setProperty("polarion.target.project", PROJECT_ID);
         specificProperties.setProperty("polarion.test.case.custom.field.jira.issue.id", polarionCustomFieldJiraIssueId);
         specificProperties.setProperty("polarion.test.case.custom.field.jira.issue.url", polarionCustomFieldJiraIssueUrl);
-        MigratorConfig.INSTANCE.setProperties(specificProperties);
+        MigratorConfig migratorConfig = new MigratorConfig();
+        migratorConfig.setProperties(specificProperties);
 
         String content;
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filename)) {
@@ -58,7 +59,7 @@ class WorkItemsTest {
         JiraIssues issues = OBJECT_MAPPER.readValue(content, JiraIssues.class);
 
         WorkItems workItems = new WorkItems();
-        workItems.fromJiraIssues(issues.issues);
+        workItems.fromJiraIssues(issues.issues, migratorConfig);
 
         assertEquals(count, issues.issues.size());
         assertEquals(issues.issues.size(), workItems.getData().size());

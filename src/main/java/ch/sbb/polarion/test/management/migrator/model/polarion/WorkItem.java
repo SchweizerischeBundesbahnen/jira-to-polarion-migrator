@@ -11,7 +11,6 @@ import lombok.Data;
         "type",
         "id",
         "attributes",
-        "relationships",
         "links"
 })
 @Data
@@ -22,8 +21,6 @@ public class WorkItem extends CommonProperties {
     private String id;
     @JsonProperty("attributes")
     private Attributes attributes = new Attributes();
-    @JsonProperty("relationships")
-    private Relationships relationships;
     @JsonProperty("links")
     private Links links;
 }

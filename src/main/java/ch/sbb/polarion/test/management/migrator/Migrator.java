@@ -29,14 +29,13 @@ public class Migrator {
 
     public static final String JIRA_ISSUES_FROM_FILE = "jira.issues.from.file";
     public static final String JIRA_TO_POLARION_MAPPING = "jira-to-polarion.mapping";
+    public static final MigratorConfig migratorConfig = new MigratorConfig();
 
     public static void main(String[] args) throws IOException {
-        MigratorConfig.INSTANCE.loadConfig();
-
         deleteMappingFile();
         Map<String, String> jiraIssueToPolarionWorkItemMapping = new HashMap<>();
 
-        List<JiraIssues> jiraIssuesList = getJiraIssues();
+        List<JiraIssues> jiraIssuesList = getJiraIssues(migratorConfig);
 
         log.info("Starting creation issues in Polarion...");
 
@@ -49,10 +48,10 @@ public class Migrator {
                 log.info("Number of obtained issues: {}", jiraIssues.issues.size());
 
                 WorkItems workItems = new WorkItems();
-                workItems.fromJiraIssues(jiraIssues.issues);
+                workItems.fromJiraIssues(jiraIssues.issues, migratorConfig);
                 log.info("Jira issues were successfully mapped to Polarion Work Items");
 
-                List<WorkItem> importedWorkItems = new PolarionConnector().importWorkItems(workItems).getData();
+                List<WorkItem> importedWorkItems = new PolarionConnector(migratorConfig).importWorkItems(workItems).getData();
                 log.info("{} Jira Issues were migrated to Polarion", importedWorkItems.size());
 
                 for (int i = 0; i < importedWorkItems.size(); i++) {
@@ -77,7 +76,7 @@ public class Migrator {
     }
 
     private static String getMappingFile() {
-        return MigratorConfig.INSTANCE.getConfigurationPath() + File.separator + JIRA_TO_POLARION_MAPPING;
+        return migratorConfig.getConfigurationPath() + File.separator + JIRA_TO_POLARION_MAPPING;
     }
 
     private static void saveMappingToFile(Map<String, String> jiraIssueToPolarionWorkItemMapping) throws IOException {
@@ -93,13 +92,13 @@ public class Migrator {
     }
 
     @SneakyThrows
-    private static List<JiraIssues> getJiraIssues() {
+    private static List<JiraIssues> getJiraIssues(MigratorConfig migratorConfig) {
         String jiraIssuesFromFile = System.getProperty(JIRA_ISSUES_FROM_FILE);
 
         if (jiraIssuesFromFile != null) {
             return loadJiraIssuesFromFile(jiraIssuesFromFile);
         } else {
-            return queryJiraIssues();
+            return queryJiraIssues(migratorConfig);
         }
     }
 
@@ -115,11 +114,11 @@ public class Migrator {
         }
     }
 
-    private static List<JiraIssues> queryJiraIssues() {
-        String jql = new JqlBuilder().build();
+    private static List<JiraIssues> queryJiraIssues(MigratorConfig migratorConfig) {
+        String jql = new JqlBuilder(migratorConfig).build();
         log.info("Trying to get jira issues using JQL query = '{}'", jql);
 
-        JiraConnector jiraConnector = new JiraConnector();
+        JiraConnector jiraConnector = new JiraConnector(migratorConfig);
 
         long count = jiraConnector.queryIssuesCount(jql);
         log.info("Total found {} jira issues", count);

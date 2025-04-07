@@ -2,8 +2,7 @@ package ch.sbb.polarion.test.management.migrator.config;
 
 import ch.sbb.polarion.test.management.migrator.exception.InvalidMigratorConfigurationException;
 import lombok.Setter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,30 +12,30 @@ import java.nio.file.Paths;
 import java.util.Locale;
 import java.util.Properties;
 
+@Slf4j
+@Setter
+public class MigratorConfig extends MigratorConfigConstants {
 
-public enum MigratorConfig implements MigratorConfigConstants {
-
-    INSTANCE;
-
-    private static final Logger log = LoggerFactory.getLogger(MigratorConfig.class);
-
-    @Setter
     private Properties properties = new Properties();
 
-    public void loadConfig() {
+    public MigratorConfig() {
+        loadConfig();
+    }
+
+    private void loadConfig() {
         properties.clear();
 
-        String configPath = getConfigurationPath() + File.separator + JIRA_TO_POLARION_MIGRATOR_PROPERTIES;
+        String config = getConfigurationPath() + File.separator + JIRA_TO_POLARION_MIGRATOR_PROPERTIES;
 
-        try (InputStream input = new FileInputStream(configPath)) {
-            log.info("{} found", JIRA_TO_POLARION_MIGRATOR_PROPERTIES);
+        try (InputStream input = new FileInputStream(config)) {
+            log.info(JIRA_TO_POLARION_MIGRATOR_PROPERTIES + " found");
             properties.load(input);
         } catch (IOException e) {
             throw new InvalidMigratorConfigurationException("Error reading " + JIRA_TO_POLARION_MIGRATOR_PROPERTIES, e);
         }
 
         MigratorConfigValidator.validateProperties(properties);
-        log.info("{} validated", JIRA_TO_POLARION_MIGRATOR_PROPERTIES);
+        log.info(JIRA_TO_POLARION_MIGRATOR_PROPERTIES + " validated");
     }
 
     public String getJiraBaseUrl() {

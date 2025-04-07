@@ -29,8 +29,11 @@ public class JiraConnector {
 
     private final Header header;
 
-    public JiraConnector() {
-        header = new JiraHeaderBuilder().build();
+    private MigratorConfig migratorConfig;
+
+    public JiraConnector(MigratorConfig migratorConfig) {
+        header = new JiraHeaderBuilder().build(migratorConfig);
+        this.migratorConfig = migratorConfig;
     }
 
     public long queryIssuesCount(String query) {
@@ -43,7 +46,7 @@ public class JiraConnector {
     }
 
     public JiraIssues queryIssues(String query, long maxResults, long startAt) {
-        String searchEndpoint = String.format("%s/rest/api/latest/search", MigratorConfig.INSTANCE.getJiraBaseUrl());
+        String searchEndpoint = String.format("%s/rest/api/latest/search", migratorConfig.getJiraBaseUrl());
 
         try (Client client = ClientBuilder.newClient(new ClientConfig())) {
             WebTarget webTarget = client.target(searchEndpoint)

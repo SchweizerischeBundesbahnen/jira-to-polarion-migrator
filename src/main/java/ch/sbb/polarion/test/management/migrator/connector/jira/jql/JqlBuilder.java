@@ -16,14 +16,15 @@ public class JqlBuilder {
     public static final String END = ")";
     public static final String KEY = "key=";
     public static final String OR = " OR ";
+    private MigratorConfig migratorConfig;
 
     public String build() {
-        JiraQueryType jiraQueryType = MigratorConfig.INSTANCE.getJiraQueryType();
+        JiraQueryType jiraQueryType = migratorConfig.getJiraQueryType();
 
         if (Objects.requireNonNull(jiraQueryType) == JiraQueryType.JQL) {
-            return MigratorConfig.INSTANCE.getJiraQueryJql();
+            return migratorConfig.getJiraQueryJql();
         } else if (jiraQueryType == JiraQueryType.KEYS) {
-            String jiraQueryKeys = MigratorConfig.INSTANCE.getJiraQueryKeys();
+            String jiraQueryKeys = migratorConfig.getJiraQueryKeys();
             return toJql(jiraQueryKeys);
         }
 

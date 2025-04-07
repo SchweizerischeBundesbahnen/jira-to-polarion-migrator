@@ -12,13 +12,13 @@ import org.apache.oltu.oauth2.common.message.types.GrantType;
 
 public class JiraOAuthClient {
 
-    public String getToken() {
+    public String getToken(MigratorConfig migratorConfig) {
         try {
             OAuthClientRequest oAuthClientRequest = OAuthClientRequest
-                    .tokenLocation(MigratorConfig.INSTANCE.getJiraSecurityOAuthTokenRequestUrl())
+                    .tokenLocation(migratorConfig.getJiraSecurityOAuthTokenRequestUrl())
                     .setGrantType(GrantType.CLIENT_CREDENTIALS)
-                    .setClientId(MigratorConfig.INSTANCE.getJiraSecurityOAuthClientId())
-                    .setClientSecret(MigratorConfig.INSTANCE.getJiraSecurityOAuthClientSecret())
+                    .setClientId(migratorConfig.getJiraSecurityOAuthClientId())
+                    .setClientSecret(migratorConfig.getJiraSecurityOAuthClientSecret())
                     .buildBodyMessage();
 
             OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());

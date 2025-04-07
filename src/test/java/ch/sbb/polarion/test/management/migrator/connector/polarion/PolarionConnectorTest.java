@@ -23,13 +23,15 @@ import static org.mockserver.model.HttpResponse.response;
 
 class PolarionConnectorTest extends BaseMockServerClass {
 
-    private final PolarionConnector connector = new PolarionConnector();
+    private final PolarionConnector connector;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public PolarionConnectorTest() throws IOException {
         Properties specificProperties = getSpecificProperties("mockserver/mockserver-config-polarion.properties");
-        MigratorConfig.INSTANCE.setProperties(specificProperties);
+        MigratorConfig migratorConfig = new MigratorConfig();
+        migratorConfig.setProperties(specificProperties);
+        connector = new PolarionConnector(migratorConfig);
     }
 
     @Test

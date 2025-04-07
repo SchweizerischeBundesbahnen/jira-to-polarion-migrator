@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 public class PolarionHeaderBuilder implements HeaderBuilder {
 
     @Override
-    public Header build() {
-        return new BearerAuthHeader(MigratorConfig.INSTANCE.getPolarionSecurityAccessToken());
+    public Header build(MigratorConfig migratorConfig) {
+        return new BearerAuthHeader(migratorConfig.getPolarionSecurityAccessToken());
     }
 }

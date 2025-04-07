@@ -40,9 +40,10 @@ class JqlBuilderTest {
             properties.setProperty("jira.query.type", "keys");
             properties.setProperty("jira.query.keys", jiraIssueKeys);
         }
-        MigratorConfig.INSTANCE.setProperties(properties);
+        MigratorConfig migratorConfig = new MigratorConfig();
+        migratorConfig.setProperties(properties);
 
-        String jqlQuery = new JqlBuilder().build();
+        String jqlQuery = new JqlBuilder(migratorConfig).build();
 
         assertEquals(expected, jqlQuery);
     }

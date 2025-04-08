@@ -3,8 +3,10 @@ package ch.sbb.polarion.test.management.migrator.connector.polarion;
 
 import ch.sbb.polarion.test.management.migrator.BaseMockServerClass;
 import ch.sbb.polarion.test.management.migrator.config.MigratorConfig;
+import ch.sbb.polarion.test.management.migrator.exception.ResponseParsingException;
 import ch.sbb.polarion.test.management.migrator.exception.WorkItemsNotCreatedException;
 import ch.sbb.polarion.test.management.migrator.model.polarion.WorkItems;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Assertions;
@@ -75,6 +77,35 @@ class PolarionConnectorTest extends BaseMockServerClass {
         );
 
         assertEquals("WorkItems were not created!!!", exception.getMessage());
+    }
+
+    @Test
+    @SneakyThrows
+    void importWorkItemsThrowsResponseParsingExceptionWhenJsonIsInvalid() {
+        WorkItems workItems = new WorkItems();
+        mockServer.when(
+                        request()
+                                .withMethod("POST")
+                                .withPath("/polarion/rest/v1/projects/elibrary/workitems")
+                                .withBody(objectMapper.writeValueAsString(workItems)),
+                        exactly(1)
+                )
+                .respond(
+                        response()
+                                .withStatusCode(201)
+                                .withHeaders(
+                                        new Header("Content-Type", "application/json; charset=utf-8"),
+                                        new Header("Cache-Control", "public, max-age=86400"))
+                                .withBody("{ invalid_json")
+                                .withDelay(TimeUnit.SECONDS, 1));
+
+        ResponseParsingException exception = assertThrows(
+                ResponseParsingException.class,
+                () -> connector.importWorkItems(workItems)
+        );
+
+        assertInstanceOf(ResponseParsingException.class, exception);
+        assertInstanceOf(JsonParseException.class, exception.getCause());
     }
 
     private void mockCallToPolarion(WorkItems workItems) throws IOException {

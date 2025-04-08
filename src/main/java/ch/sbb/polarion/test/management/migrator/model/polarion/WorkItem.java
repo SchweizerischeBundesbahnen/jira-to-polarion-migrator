@@ -4,7 +4,8 @@ import ch.sbb.polarion.test.management.migrator.model.CommonProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -13,7 +14,8 @@ import lombok.Data;
         "attributes",
         "links"
 })
-@Data
+@Getter
+@Setter
 public class WorkItem extends CommonProperties {
     @JsonProperty("type")
     private String type = "workitems";

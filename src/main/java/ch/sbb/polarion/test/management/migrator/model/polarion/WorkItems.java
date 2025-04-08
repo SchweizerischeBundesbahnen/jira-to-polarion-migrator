@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +18,8 @@ import java.util.Map;
 @JsonPropertyOrder({
         "data"
 })
-@Data
+@Getter
+@Setter
 public class WorkItems extends CommonProperties {
 
     public static final Map<String, String> PRIORITY_MAP = Map.of(

@@ -12,7 +12,7 @@ import org.apache.oltu.oauth2.common.message.types.GrantType;
 
 public class JiraOAuthClient {
 
-    public String getToken(MigratorConfig migratorConfig) {
+    public static String getToken(MigratorConfig migratorConfig) {
         try {
             OAuthClientRequest oAuthClientRequest = OAuthClientRequest
                     .tokenLocation(migratorConfig.getJiraSecurityOAuthTokenRequestUrl())

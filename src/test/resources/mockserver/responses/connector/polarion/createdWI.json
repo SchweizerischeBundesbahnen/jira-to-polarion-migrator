@@ -1,0 +1,12 @@
+{
+  "data": [
+    {
+      "type": "workitems",
+      "id": "elibrary/EL-631",
+      "links": {
+        "self": "http://localhost/polarion/rest/v1/projects/elibrary/workitems/EL-631",
+        "portal": "http://localhost/polarion/redirect/project/elibrary/workitem?id=EL-631"
+      }
+    }
+  ]
+}

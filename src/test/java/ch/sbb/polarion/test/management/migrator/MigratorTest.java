@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 
 class MigratorTest {
     @Test
-    void testProcessJiraIssues_returnsCorrectMapping() {
+    void testProcessJiraIssues() {
         // Arrange
         Issue issue1 = new Issue();
         issue1.setKey("JIRA-123");

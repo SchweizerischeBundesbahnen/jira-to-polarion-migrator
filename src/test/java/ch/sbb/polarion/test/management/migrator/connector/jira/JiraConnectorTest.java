@@ -74,7 +74,7 @@ class JiraConnectorTest extends BaseMockServerClass {
     }
 
     @Test
-    void shouldThrowExceptionWhenIssueNotFound() throws IOException {
+    void shouldThrowExceptionWhenIssueNotFound() {
         String issuesKey = "(key=TESTPRJ-100)";
         mockCallToJiraWithThrowExceptionWhenIssueNotFound(issuesKey);
 

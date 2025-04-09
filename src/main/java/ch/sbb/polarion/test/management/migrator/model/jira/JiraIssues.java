@@ -4,6 +4,7 @@ import ch.sbb.polarion.test.management.migrator.model.CommonProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.Data;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
         "total",
         "issues"
 })
+@Data
 public class JiraIssues extends CommonProperties {
 
     @JsonProperty("expand")

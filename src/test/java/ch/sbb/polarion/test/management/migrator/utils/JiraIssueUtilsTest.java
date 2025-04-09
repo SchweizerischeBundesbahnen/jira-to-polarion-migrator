@@ -1,6 +1,8 @@
-package ch.sbb.polarion.test.management.migrator;
+package ch.sbb.polarion.test.management.migrator.utils;
 
+import ch.sbb.polarion.test.management.migrator.config.JiraQueryType;
 import ch.sbb.polarion.test.management.migrator.config.MigratorConfig;
+import ch.sbb.polarion.test.management.migrator.connector.jira.JiraConnector;
 import ch.sbb.polarion.test.management.migrator.model.jira.JiraIssues;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
@@ -10,18 +12,12 @@ import java.nio.file.Path;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-class MigratorTest {
-
-    @Test
-    void getMappingFileShouldReturnCorrectPath() {
-        // Act
-        String mappingFile = Migrator.getMappingFile();
-
-        // Assert
-        assertTrue(mappingFile.endsWith("jira-to-polarion.mapping"));
-    }
+class JiraIssueUtilsTest {
 
     @Test
     @SneakyThrows
@@ -40,7 +36,7 @@ class MigratorTest {
         Files.write(tempFile, json.getBytes());
 
         // Act
-        List<JiraIssues> result = Migrator.loadJiraIssuesFromFile(tempFile.toString());
+        List<JiraIssues> result = JiraIssueUtils.loadJiraIssuesFromFile(tempFile.toString());
 
         // Assert
         assertEquals(1, result.size());
@@ -60,10 +56,34 @@ class MigratorTest {
         System.setProperty("jira.issues.from.file", tempFile.toString());
 
         // Act
-        List<JiraIssues> result = Migrator.getJiraIssues(new MigratorConfig());
+        List<JiraIssues> result = JiraIssueUtils.getJiraIssues(new MigratorConfig());
 
         // Assert
         assertEquals(1, result.size());
         assertEquals("KEY-1", result.get(0).issues.get(0).key);
+    }
+
+    @Test
+    void testQueryJiraIssues() {
+        // Arrange
+        MigratorConfig config = new MigratorConfig() {
+            @Override
+            public JiraQueryType getJiraQueryType() {
+                return JiraQueryType.JQL;
+            }
+        };
+        JiraConnector connector = mock(JiraConnector.class);
+        String jql = "project = TEST";
+
+
+        when(connector.queryIssuesCount(jql)).thenReturn(1L);
+        when(connector.queryIssues(eq(jql), anyInt(), anyInt()))
+                .thenReturn(new JiraIssues());
+
+        // Act
+        List<JiraIssues> result = JiraIssueUtils.queryJiraIssues(config, connector);
+
+        // Assert
+        assertEquals(1, result.size());
     }
 }

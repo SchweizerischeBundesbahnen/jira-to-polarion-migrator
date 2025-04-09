@@ -103,7 +103,13 @@ class JiraConnectorTest extends BaseMockServerClass {
         mockServer.when(request().withMethod("GET").withPath("/rest/api/latest/search").withQueryStringParameter("jql", jql).withQueryStringParameter("expand", "renderedFields"), exactly(1)).respond(response().withStatusCode(400).withHeaders(new Header("Content-Type", "application/json; charset=utf-8"), new Header("Cache-Control", "public, max-age=86400")).withBody(content).withDelay(TimeUnit.SECONDS, 1));
     }
 
-    private void mockCallToJiraWithThrowExceptionWhenIssueNotFound(String jql) throws IOException {
-        mockServer.when(request().withMethod("GET").withPath("/rest/api/latest/search").withQueryStringParameter("jql", jql).withQueryStringParameter("expand", "renderedFields"), exactly(1)).respond(response().withStatusCode(200).withHeaders(new Header("Content-Type", "application/json; charset=utf-8"), new Header("Cache-Control", "public, max-age=86400")).withBody("{\n" + "  \"expand\": \"schema,names\",\n" + "  \"startAt\": 0,\n" + "  \"maxResults\": 0,\n" + "  \"total\": 0,\n" + "  \"issues\": []" + "}").withDelay(TimeUnit.SECONDS, 1));
+    private void mockCallToJiraWithThrowExceptionWhenIssueNotFound(String jql)  {
+        mockServer.when(request().withMethod("GET").withPath("/rest/api/latest/search").withQueryStringParameter("jql", jql).withQueryStringParameter("expand", "renderedFields"), exactly(1)).respond(response().withStatusCode(200).withHeaders(new Header("Content-Type", "application/json; charset=utf-8"), new Header("Cache-Control", "public, max-age=86400")).withBody("""
+                {
+                  "expand": "schema,names",
+                  "startAt": 0,
+                  "maxResults": 0,
+                  "total": 0,
+                  "issues": []}""").withDelay(TimeUnit.SECONDS, 1));
     }
 }

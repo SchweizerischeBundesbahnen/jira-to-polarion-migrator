@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class MigratorTest {
+class MigratorTest {
     @Test
     void testProcessJiraIssues_returnsCorrectMapping() {
         // Arrange

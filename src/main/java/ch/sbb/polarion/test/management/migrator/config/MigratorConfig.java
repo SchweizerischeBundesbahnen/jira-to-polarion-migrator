@@ -1,6 +1,7 @@
 package ch.sbb.polarion.test.management.migrator.config;
 
 import ch.sbb.polarion.test.management.migrator.exception.InvalidMigratorConfigurationException;
+import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,6 +15,7 @@ import java.util.Properties;
 
 @Slf4j
 @Setter
+@Getter
 public class MigratorConfig extends MigratorConfigConstants {
 
     private Properties properties = new Properties();

@@ -21,13 +21,21 @@ class MigratorConfigTest {
                                 entry(POLARION_TEST_CASE_TYPE, "custom_testcase"),
                                 entry(POLARION_TEST_CASE_TESTTYPE, "custom_testtype"),
                                 entry(POLARION_TEST_CASE_STATUS, "custom_status"),
-                                entry(POLARION_TEST_CASE_SEVERITY, "custom_secerity")
+                                entry(POLARION_TEST_CASE_SEVERITY, "custom_secerity"),
+                                entry(JIRA_SECURITY_PERSONAL_ACCESS_TOKEN, "jira_token"),
+                                entry(JIRA_SECURITY_OAUTH_TOKEN_REQUEST_URL, "jira_url"),
+                                entry(JIRA_SECURITY_OAUTH_CLIENT_ID, "client_id"),
+                                entry(JIRA_SECURITY_OAUTH_CLIENT_SECRET, "secret")
                         ),
                         Map.ofEntries(
                                 entry(POLARION_TEST_CASE_TYPE, "custom_testcase"),
                                 entry(POLARION_TEST_CASE_TESTTYPE, "custom_testtype"),
                                 entry(POLARION_TEST_CASE_STATUS, "custom_status"),
-                                entry(POLARION_TEST_CASE_SEVERITY, "custom_secerity")
+                                entry(POLARION_TEST_CASE_SEVERITY, "custom_secerity"),
+                                entry(JIRA_SECURITY_PERSONAL_ACCESS_TOKEN, "jira_token"),
+                                entry(JIRA_SECURITY_OAUTH_TOKEN_REQUEST_URL, "jira_url"),
+                                entry(JIRA_SECURITY_OAUTH_CLIENT_ID, "client_id"),
+                                entry(JIRA_SECURITY_OAUTH_CLIENT_SECRET, "secret")
                         )
                 ),
                 Arguments.of(
@@ -71,5 +79,11 @@ class MigratorConfigTest {
         Assertions.assertEquals(expected.get(POLARION_TEST_CASE_TESTTYPE), migratorConfig.getPolarionTestCaseTesttype());
         Assertions.assertEquals(expected.get(POLARION_TEST_CASE_STATUS), migratorConfig.getPolarionTestCaseStatus());
         Assertions.assertEquals(expected.get(POLARION_TEST_CASE_SEVERITY), migratorConfig.getPolarionTestCaseSeverity());
+
+        Assertions.assertEquals(expected.get(JIRA_SECURITY_PERSONAL_ACCESS_TOKEN), migratorConfig.getJiraSecurityPersonalAccessToken());
+        Assertions.assertEquals(expected.get(JIRA_SECURITY_OAUTH_TOKEN_REQUEST_URL), migratorConfig.getJiraSecurityOAuthTokenRequestUrl());
+        Assertions.assertEquals(expected.get(JIRA_SECURITY_OAUTH_CLIENT_ID), migratorConfig.getJiraSecurityOAuthClientId());
+        Assertions.assertEquals(expected.get(JIRA_SECURITY_OAUTH_CLIENT_SECRET), migratorConfig.getJiraSecurityOAuthClientSecret());
+
     }
 }

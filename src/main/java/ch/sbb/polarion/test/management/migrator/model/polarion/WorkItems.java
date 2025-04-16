@@ -58,7 +58,7 @@ public class WorkItems extends CommonProperties {
                 workItem.getAttributes().setAdditionalProperty(polarionTestCaseCustomFieldJiraIssueUrl, migratorConfig.getJiraBaseUrl() + "/browse/" + issue.key);
             }
 
-            List<String> params = Arrays.stream(migratorConfig.getCustomFields().split(" ")).filter(s -> !s.isEmpty()).toList();
+            List<String> params = Arrays.stream(migratorConfig.getCustomFields().split(",")).filter(s -> !s.isEmpty()).toList();
 
             for (String param : params) {
                 Map<String, Object> additionalProperties = issue.getFields().getAdditionalProperties();

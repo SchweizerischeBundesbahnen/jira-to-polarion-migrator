@@ -51,3 +51,4 @@ The migrator will check provided `jira-to-polarion-migrator.properties` config f
 | polarion.test.case.severity                    | Polarion test case severity (default `normal`)                                          |
 | polarion.test.case.custom.field.jira.issue.id  | Name of custom field to store Jira issue ID (e.g. `jiraIssueID`)                        |
 | polarion.test.case.custom.field.jira.issue.url | Name of custom field to store URL to Jira issue (e.g. `jiraIssueURL`)                   |
+| polarion.test.case.custom.fields               | Comma separated custom field list (e.g. `scenario,timeestimate,issuetype.name`)         |

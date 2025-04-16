@@ -26,11 +26,11 @@ class WorkItemsTest {
 
     private static Stream<Arguments> testValuesForFromJiraIssuesTest() {
         return Stream.of(
-                Arguments.of("model/polarion/oneIssueWithoutPriority.json", 1, "", ""),
-                Arguments.of("model/polarion/emptyIssuesList.json", 0, "", ""),
-                Arguments.of("model/polarion/TESTPRJ-50.json", 50, "", ""),
-                Arguments.of("model/polarion/TESTPRJ-300.json", 300, "", ""),
-                Arguments.of("model/polarion/TESTPRJ-300.json", 300, "jiraIssueID", "jiraIssueURL")
+                Arguments.of("model/polarion/oneIssueWithoutPriority.json", 1, "", "", ""),
+                Arguments.of("model/polarion/emptyIssuesList.json", 0, "", "", ""),
+                Arguments.of("model/polarion/TESTPRJ-50.json", 50, "", "", ""),
+                Arguments.of("model/polarion/TESTPRJ-300.json", 300, "", "", ""),
+                Arguments.of("model/polarion/TESTPRJ-300.json", 300, "jiraIssueID", "jiraIssueURL", "customfield_11200.value")
         );
     }
 
@@ -40,12 +40,13 @@ class WorkItemsTest {
 
     @ParameterizedTest
     @MethodSource("testValuesForFromJiraIssuesTest")
-    void testFromJiraIssues(String filename, int count, String polarionCustomFieldJiraIssueId, String polarionCustomFieldJiraIssueUrl) throws IOException {
+    void testFromJiraIssues(String filename, int count, String polarionCustomFieldJiraIssueId, String polarionCustomFieldJiraIssueUrl, String customFields) throws IOException {
         Properties specificProperties = new Properties();
         specificProperties.setProperty("jira.base.url", JIRA_BASE_URL);
         specificProperties.setProperty("polarion.target.project", PROJECT_ID);
         specificProperties.setProperty("polarion.test.case.custom.field.jira.issue.id", polarionCustomFieldJiraIssueId);
         specificProperties.setProperty("polarion.test.case.custom.field.jira.issue.url", polarionCustomFieldJiraIssueUrl);
+        specificProperties.setProperty("polarion.test.case.custom.fields", customFields);
         MigratorConfig migratorConfig = new MigratorConfig();
         migratorConfig.setProperties(specificProperties);
 
@@ -84,6 +85,9 @@ class WorkItemsTest {
             }
             if (!polarionCustomFieldJiraIssueUrl.isEmpty()) {
                 assertEquals(JIRA_BASE_URL + "/browse/" + issue.key, wi.getAttributes().getAdditionalProperties().get(polarionCustomFieldJiraIssueUrl));
+            }
+            if (!customFields.isEmpty()) {
+                assertEquals("Integrationstest", wi.getAttributes().getAdditionalProperties().get(customFields));
             }
         }
     }

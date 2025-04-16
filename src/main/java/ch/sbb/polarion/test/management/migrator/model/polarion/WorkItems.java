@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -74,7 +75,7 @@ public class WorkItems extends CommonProperties {
         }
     }
 
-    public void setAdditionalPropertyIfExists(String param, Map<String, Object> source, WorkItem workItem) {
+    private void setAdditionalPropertyIfExists(String param, Map<String, Object> source, WorkItem workItem) {
         Object value = getNestedValue(source, param);
         if (value != null) {
             workItem.getAttributes().setAdditionalProperty(param, value);
@@ -108,5 +109,19 @@ public class WorkItems extends CommonProperties {
         }
 
         return current;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        WorkItems workItems = (WorkItems) o;
+        return Objects.equals(data, workItems.data);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), data);
     }
 }

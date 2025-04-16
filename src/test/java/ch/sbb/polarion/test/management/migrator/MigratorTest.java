@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -42,7 +43,7 @@ class MigratorTest {
         workItems.setData(List.of(wi1, wi2));
 
         PolarionConnector connector = mock(PolarionConnector.class);
-        when(connector.importWorkItems(workItems)).thenReturn(workItems);
+        when(connector.importWorkItems(any())).thenReturn(workItems);
 
         // Act
         Map<String, String> result = Migrator.processJiraIssues(List.of(jiraIssues), connector);

@@ -21,6 +21,7 @@ import java.util.Objects;
 })
 @Getter
 @Setter
+
 public class WorkItems extends CommonProperties {
 
     public static final Map<String, String> PRIORITY_MAP = Map.of(
@@ -114,9 +115,8 @@ public class WorkItems extends CommonProperties {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof WorkItems workItems)) return false;
         if (!super.equals(o)) return false;
-        WorkItems workItems = (WorkItems) o;
         return Objects.equals(data, workItems.data);
     }
 

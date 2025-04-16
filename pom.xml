@@ -4,7 +4,7 @@
 
     <groupId>ch.sbb.polarion.tools</groupId>
     <artifactId>jira-to-polarion-migrator</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <name>Jira Xray migration to Polarion</name>
     <description>This is a standalone application which helps with migration from Jira Xray to Polarion</description>

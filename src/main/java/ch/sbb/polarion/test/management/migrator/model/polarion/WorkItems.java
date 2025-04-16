@@ -6,6 +6,7 @@ import ch.sbb.polarion.test.management.migrator.model.jira.Issue;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,9 +20,7 @@ import java.util.Objects;
 @JsonPropertyOrder({
         "data"
 })
-@Getter
-@Setter
-
+@Data
 public class WorkItems extends CommonProperties {
 
     public static final Map<String, String> PRIORITY_MAP = Map.of(
@@ -110,18 +109,5 @@ public class WorkItems extends CommonProperties {
         }
 
         return current;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof WorkItems workItems)) return false;
-        if (!super.equals(o)) return false;
-        return Objects.equals(data, workItems.data);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), data);
     }
 }

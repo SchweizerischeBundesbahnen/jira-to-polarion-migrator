@@ -6,11 +6,11 @@ import ch.sbb.polarion.test.management.migrator.model.jira.Issue;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -60,8 +60,53 @@ public class WorkItems extends CommonProperties {
                 workItem.getAttributes().setAdditionalProperty(polarionTestCaseCustomFieldJiraIssueUrl, migratorConfig.getJiraBaseUrl() + "/browse/" + issue.key);
             }
 
+            List<String> params = Arrays.stream(migratorConfig.getCustomFields().split(" ")).filter(s -> !s.isEmpty()).toList();
+
+            for (String param : params) {
+                Map<String, Object> additionalProperties = issue.getFields().getAdditionalProperties();
+                Map<String, Object> renderedProperties = issue.renderedFields.getAdditionalProperties();
+
+                setAdditionalPropertyIfExists(param, additionalProperties, workItem);
+                setAdditionalPropertyIfExists(param, renderedProperties, workItem);
+            }
+
             data.add(workItem);
         }
     }
 
+    public void setAdditionalPropertyIfExists(String param, Map<String, Object> source, WorkItem workItem) {
+        Object value = getNestedValue(source, param);
+        if (value != null) {
+            workItem.getAttributes().setAdditionalProperty(param, value);
+        }
+    }
+
+    private Object getNestedValue(Map<String, Object> map, String path) {
+        String[] keys = path.split("\\.");
+        Object current = map;
+
+        for (String key : keys) {
+            if (current instanceof Map) {
+                current = ((Map<?, ?>) current).get(key);
+            } else if (current instanceof List<?> list) {
+                if (list.isEmpty()) {
+                    return null;
+                }
+                current = list.get(0);
+                if (current instanceof Map) {
+                    current = ((Map<?, ?>) current).get(key);
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+
+            if (current == null) {
+                return null;
+            }
+        }
+
+        return current;
+    }
 }

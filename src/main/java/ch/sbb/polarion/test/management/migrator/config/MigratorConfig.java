@@ -124,6 +124,10 @@ public class MigratorConfig extends MigratorConfigConstants {
         return getStringProperty(POLARION_TEST_CASE_CUSTOM_FIELD_JIRA_ISSUE_URL);
     }
 
+    public String getCustomFields() {
+        return getNonBlankStringProperty(CUSTOM_FIELDS, "");
+    }
+
     public String getConfigurationPath() {
         return Paths.get("").toAbsolutePath().toString();
     }

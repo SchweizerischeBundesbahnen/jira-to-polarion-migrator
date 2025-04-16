@@ -36,4 +36,6 @@ public class MigratorConfigConstants {
     public static final String POLARION_SECURITY_ACCESS_TOKEN = "polarion.security.access.token";
 
     public static final String POLARION_TARGET_PROJECT = "polarion.target.project";
+
+    public static final String CUSTOM_FIELDS = "polarion.test.case.custom.fields";
 }

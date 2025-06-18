@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/SchweizerischeBundesbahnen/jira-to-polarion-migrator/compare/v1.0.0...v1.0.1) (2025-06-18)
+
+
+### Bug Fixes
+
+* **deps:** update log4j2 monorepo to v2.25.0 ([6518b35](https://github.com/SchweizerischeBundesbahnen/jira-to-polarion-migrator/commit/6518b3531cd0d2f49f5e6113f83ecb0fda98bcc4))
+
 ## 1.0.0 (2025-04-16)
 
 

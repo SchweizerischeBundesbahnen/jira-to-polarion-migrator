@@ -58,7 +58,7 @@
         <jackson.version>2.18.3</jackson.version>
         <mockito.version>5.18.0</mockito.version>
         <mockito-inline.version>5.2.0</mockito-inline.version>
-        <junit.version>5.13.1</junit.version>
+        <junit.version>5.13.2</junit.version>
         <log4j.version>2.25.0</log4j.version>
         <mockserver.version>5.15.0</mockserver.version>
         <lombok.version>1.18.24</lombok.version>

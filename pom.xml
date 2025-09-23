@@ -80,7 +80,7 @@
         <swagger-maven-plugin.version>2.2.27</swagger-maven-plugin.version>
         <sonar-maven-plugin.version>5.2.0.4988</sonar-maven-plugin.version>
 
-        <central-publishing-maven-plugin.version>0.8.0</central-publishing-maven-plugin.version>
+        <central-publishing-maven-plugin.version>0.9.0</central-publishing-maven-plugin.version>
         <central-publishing-maven-plugin.autoPublish>true</central-publishing-maven-plugin.autoPublish>
 
         <!-- Sonar and JaCoCo -->

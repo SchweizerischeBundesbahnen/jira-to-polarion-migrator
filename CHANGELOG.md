@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.0.1](https://github.com/SchweizerischeBundesbahnen/jira-to-polarion-migrator/compare/v1.0.0...v1.0.1) (2025-10-11)
+
+
+### Bug Fixes
+
+* **deps:** update jersey monorepo to v3.1.11 ([d590c81](https://github.com/SchweizerischeBundesbahnen/jira-to-polarion-migrator/commit/d590c816221f72c68d7196677cefe2ae403309da))
+* **deps:** update log4j2 monorepo to v2.25.0 ([6518b35](https://github.com/SchweizerischeBundesbahnen/jira-to-polarion-migrator/commit/6518b3531cd0d2f49f5e6113f83ecb0fda98bcc4))
+* **deps:** update log4j2 monorepo to v2.25.1 ([7d85211](https://github.com/SchweizerischeBundesbahnen/jira-to-polarion-migrator/commit/7d852112cfe8a87a467ae430345da8980cad7993))
+* **deps:** update log4j2 monorepo to v2.25.2 ([25039a9](https://github.com/SchweizerischeBundesbahnen/jira-to-polarion-migrator/commit/25039a9b9cc3c3a0ca34776907180d5a0e567d2b))
+
 ## 1.0.0 (2025-04-16)
 
 

@@ -59,7 +59,7 @@
         <mockito.version>5.21.0</mockito.version>
         <mockito-inline.version>5.2.0</mockito-inline.version>
         <junit.version>6.0.1</junit.version>
-        <log4j.version>2.25.2</log4j.version>
+        <log4j.version>2.25.3</log4j.version>
         <mockserver.version>5.15.0</mockserver.version>
         <lombok.version>1.18.24</lombok.version>
         <jetbrains.api.version>24.0.1</jetbrains.api.version>

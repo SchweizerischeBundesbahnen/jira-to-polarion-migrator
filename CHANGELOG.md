@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.0.1](https://github.com/SchweizerischeBundesbahnen/jira-to-polarion-migrator/compare/v1.0.0...v1.0.1) (2026-02-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency com.fasterxml.jackson.core:jackson-databind to v2.20.1 ([#14](https://github.com/SchweizerischeBundesbahnen/jira-to-polarion-migrator/issues/14)) ([1f8be6a](https://github.com/SchweizerischeBundesbahnen/jira-to-polarion-migrator/commit/1f8be6a9518fd6eadf848ca0076ec9499a61beec))
+* **deps:** update dependency org.jacoco:jacoco-maven-plugin to v0.8.14 ([11e57c3](https://github.com/SchweizerischeBundesbahnen/jira-to-polarion-migrator/commit/11e57c3001a82306528ddb1f721410cdf547528a))
+* **deps:** update jersey monorepo to v3.1.11 ([d590c81](https://github.com/SchweizerischeBundesbahnen/jira-to-polarion-migrator/commit/d590c816221f72c68d7196677cefe2ae403309da))
+* **deps:** update jersey monorepo to v4 ([934ea8b](https://github.com/SchweizerischeBundesbahnen/jira-to-polarion-migrator/commit/934ea8b399d362a009d384b2844fe043689141e0))
+* **deps:** update jersey monorepo to v4 (major) ([#25](https://github.com/SchweizerischeBundesbahnen/jira-to-polarion-migrator/issues/25)) ([934ea8b](https://github.com/SchweizerischeBundesbahnen/jira-to-polarion-migrator/commit/934ea8b399d362a009d384b2844fe043689141e0))
+* **deps:** update jersey monorepo to v4.0.2 ([652e3ab](https://github.com/SchweizerischeBundesbahnen/jira-to-polarion-migrator/commit/652e3abc216b2eb36d170f0387d1f239339716cd))
+* **deps:** update log4j2 monorepo to v2.25.0 ([6518b35](https://github.com/SchweizerischeBundesbahnen/jira-to-polarion-migrator/commit/6518b3531cd0d2f49f5e6113f83ecb0fda98bcc4))
+* **deps:** update log4j2 monorepo to v2.25.1 ([7d85211](https://github.com/SchweizerischeBundesbahnen/jira-to-polarion-migrator/commit/7d852112cfe8a87a467ae430345da8980cad7993))
+* **deps:** update log4j2 monorepo to v2.25.2 ([25039a9](https://github.com/SchweizerischeBundesbahnen/jira-to-polarion-migrator/commit/25039a9b9cc3c3a0ca34776907180d5a0e567d2b))
+* **deps:** update log4j2 monorepo to v2.25.3 ([0ce0e80](https://github.com/SchweizerischeBundesbahnen/jira-to-polarion-migrator/commit/0ce0e8039565fdd4de63f50e59c5e8874d403288))
+
 ## 1.0.0 (2025-04-16)
 
 

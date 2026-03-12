@@ -1,5 +1,6 @@
 package ch.sbb.polarion.test.management.migrator;
 
+import com.github.tomakehurst.wiremock.WireMockServer;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
@@ -7,28 +8,28 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockserver.integration.ClientAndServer;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import static org.mockserver.integration.ClientAndServer.startClientAndServer;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 
 @Slf4j
 @ExtendWith(MockitoExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class BaseMockServerClass {
-    protected ClientAndServer mockServer;
+    protected WireMockServer wireMockServer;
 
     @BeforeAll
     public void startServer() {
-        mockServer = startClientAndServer(1080);
+        wireMockServer = new WireMockServer(wireMockConfig().port(1080));
+        wireMockServer.start();
     }
 
     @AfterAll
     public void stopServer() {
-        mockServer.stop();
+        wireMockServer.stop();
     }
 
     protected Properties getSpecificProperties(String mockServerConfigFile) throws IOException {

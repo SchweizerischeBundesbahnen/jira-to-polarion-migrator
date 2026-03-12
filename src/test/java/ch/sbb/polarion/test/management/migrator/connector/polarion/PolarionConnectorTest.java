@@ -11,18 +11,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockserver.model.Header;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockserver.matchers.Times.exactly;
-import static org.mockserver.model.HttpRequest.request;
-import static org.mockserver.model.HttpResponse.response;
 
 class PolarionConnectorTest extends BaseMockServerClass {
 
@@ -59,17 +55,10 @@ class PolarionConnectorTest extends BaseMockServerClass {
     @SneakyThrows
     void shouldThrowWorkItemsNotCreatedExceptionWhenResponseIsNotCreated() {
         WorkItems workItems = new WorkItems();
-        mockServer.when(
-                        request()
-                                .withMethod("POST")
-                                .withPath("/polarion/rest/v1/projects/elibrary/workitems")
-                                .withBody(objectMapper.writeValueAsString(workItems)),
-                        exactly(1)
-                )
-                .respond(
-                        response()
-                                .withStatusCode(400)
-                );
+        wireMockServer.stubFor(post(urlPathEqualTo("/polarion/rest/v1/projects/elibrary/workitems"))
+                .withRequestBody(equalToJson(objectMapper.writeValueAsString(workItems)))
+                .willReturn(aResponse()
+                        .withStatus(400)));
 
         WorkItemsNotCreatedException exception = assertThrows(
                 WorkItemsNotCreatedException.class,
@@ -83,21 +72,14 @@ class PolarionConnectorTest extends BaseMockServerClass {
     @SneakyThrows
     void importWorkItemsThrowsResponseParsingExceptionWhenJsonIsInvalid() {
         WorkItems workItems = new WorkItems();
-        mockServer.when(
-                        request()
-                                .withMethod("POST")
-                                .withPath("/polarion/rest/v1/projects/elibrary/workitems")
-                                .withBody(objectMapper.writeValueAsString(workItems)),
-                        exactly(1)
-                )
-                .respond(
-                        response()
-                                .withStatusCode(201)
-                                .withHeaders(
-                                        new Header("Content-Type", "application/json; charset=utf-8"),
-                                        new Header("Cache-Control", "public, max-age=86400"))
-                                .withBody("{ invalid_json")
-                                .withDelay(TimeUnit.SECONDS, 1));
+        wireMockServer.stubFor(post(urlPathEqualTo("/polarion/rest/v1/projects/elibrary/workitems"))
+                .withRequestBody(equalToJson(objectMapper.writeValueAsString(workItems)))
+                .willReturn(aResponse()
+                        .withStatus(201)
+                        .withHeader("Content-Type", "application/json; charset=utf-8")
+                        .withHeader("Cache-Control", "public, max-age=86400")
+                        .withBody("{ invalid_json")
+                        .withFixedDelay(1000)));
 
         ResponseParsingException exception = assertThrows(
                 ResponseParsingException.class,
@@ -115,20 +97,13 @@ class PolarionConnectorTest extends BaseMockServerClass {
         }
         Assertions.assertNotNull(content);
 
-        mockServer.when(
-                        request()
-                                .withMethod("POST")
-                                .withPath("/polarion/rest/v1/projects/elibrary/workitems")
-                                .withBody(objectMapper.writeValueAsString(workItems)),
-                        exactly(1)
-                )
-                .respond(
-                        response()
-                                .withStatusCode(201)
-                                .withHeaders(
-                                        new Header("Content-Type", "application/json; charset=utf-8"),
-                                        new Header("Cache-Control", "public, max-age=86400"))
-                                .withBody(content)
-                                .withDelay(TimeUnit.SECONDS, 1));
+        wireMockServer.stubFor(post(urlPathEqualTo("/polarion/rest/v1/projects/elibrary/workitems"))
+                .withRequestBody(equalToJson(objectMapper.writeValueAsString(workItems)))
+                .willReturn(aResponse()
+                        .withStatus(201)
+                        .withHeader("Content-Type", "application/json; charset=utf-8")
+                        .withHeader("Cache-Control", "public, max-age=86400")
+                        .withBody(content)
+                        .withFixedDelay(1000)));
     }
 }

@@ -7,18 +7,14 @@ import ch.sbb.polarion.test.management.migrator.exception.JiraIssueNotFoundExcep
 import ch.sbb.polarion.test.management.migrator.model.jira.JiraIssues;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockserver.model.Header;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockserver.matchers.Times.exactly;
-import static org.mockserver.model.HttpRequest.request;
-import static org.mockserver.model.HttpResponse.response;
 
 class JiraConnectorTest extends BaseMockServerClass {
 
@@ -90,7 +86,15 @@ class JiraConnectorTest extends BaseMockServerClass {
         }
         Assertions.assertNotNull(content);
 
-        mockServer.when(request().withMethod("GET").withPath("/rest/api/latest/search").withQueryStringParameter("jql", jql).withQueryStringParameter("expand", "renderedFields"), exactly(1)).respond(response().withStatusCode(200).withHeaders(new Header("Content-Type", "application/json; charset=utf-8"), new Header("Cache-Control", "public, max-age=86400")).withBody(content).withDelay(TimeUnit.SECONDS, 1));
+        wireMockServer.stubFor(get(urlPathEqualTo("/rest/api/latest/search"))
+                .withQueryParam("jql", equalTo(jql))
+                .withQueryParam("expand", equalTo("renderedFields"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json; charset=utf-8")
+                        .withHeader("Cache-Control", "public, max-age=86400")
+                        .withBody(content)
+                        .withFixedDelay(1000)));
     }
 
     private void mockCallToJiraWithError(String pathToResponse, String jql) throws IOException {
@@ -100,16 +104,32 @@ class JiraConnectorTest extends BaseMockServerClass {
         }
         Assertions.assertNotNull(content);
 
-        mockServer.when(request().withMethod("GET").withPath("/rest/api/latest/search").withQueryStringParameter("jql", jql).withQueryStringParameter("expand", "renderedFields"), exactly(1)).respond(response().withStatusCode(400).withHeaders(new Header("Content-Type", "application/json; charset=utf-8"), new Header("Cache-Control", "public, max-age=86400")).withBody(content).withDelay(TimeUnit.SECONDS, 1));
+        wireMockServer.stubFor(get(urlPathEqualTo("/rest/api/latest/search"))
+                .withQueryParam("jql", equalTo(jql))
+                .withQueryParam("expand", equalTo("renderedFields"))
+                .willReturn(aResponse()
+                        .withStatus(400)
+                        .withHeader("Content-Type", "application/json; charset=utf-8")
+                        .withHeader("Cache-Control", "public, max-age=86400")
+                        .withBody(content)
+                        .withFixedDelay(1000)));
     }
 
-    private void mockCallToJiraWithThrowExceptionWhenIssueNotFound(String jql)  {
-        mockServer.when(request().withMethod("GET").withPath("/rest/api/latest/search").withQueryStringParameter("jql", jql).withQueryStringParameter("expand", "renderedFields"), exactly(1)).respond(response().withStatusCode(200).withHeaders(new Header("Content-Type", "application/json; charset=utf-8"), new Header("Cache-Control", "public, max-age=86400")).withBody("""
-                {
-                  "expand": "schema,names",
-                  "startAt": 0,
-                  "maxResults": 0,
-                  "total": 0,
-                  "issues": []}""").withDelay(TimeUnit.SECONDS, 1));
+    private void mockCallToJiraWithThrowExceptionWhenIssueNotFound(String jql) {
+        wireMockServer.stubFor(get(urlPathEqualTo("/rest/api/latest/search"))
+                .withQueryParam("jql", equalTo(jql))
+                .withQueryParam("expand", equalTo("renderedFields"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json; charset=utf-8")
+                        .withHeader("Cache-Control", "public, max-age=86400")
+                        .withBody("""
+                                {
+                                  "expand": "schema,names",
+                                  "startAt": 0,
+                                  "maxResults": 0,
+                                  "total": 0,
+                                  "issues": []}""")
+                        .withFixedDelay(1000)));
     }
 }

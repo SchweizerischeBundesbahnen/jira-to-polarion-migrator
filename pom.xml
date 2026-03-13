@@ -59,7 +59,7 @@
         <mockito.version>5.22.0</mockito.version>
         <junit.version>6.0.3</junit.version>
         <log4j.version>2.25.3</log4j.version>
-        <wiremock.version>3.13.0</wiremock.version>
+        <wiremock.version>3.13.2</wiremock.version>
         <lombok.version>1.18.38</lombok.version>
         <jetbrains.api.version>24.0.1</jetbrains.api.version>
         <oauth2.client.version>1.0.2</oauth2.client.version>

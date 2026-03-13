@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -25,6 +26,11 @@ public abstract class BaseMockServerClass {
     public void startServer() {
         wireMockServer = new WireMockServer(wireMockConfig().port(1080));
         wireMockServer.start();
+    }
+
+    @BeforeEach
+    public void resetServer() {
+        wireMockServer.resetAll();
     }
 
     @AfterAll

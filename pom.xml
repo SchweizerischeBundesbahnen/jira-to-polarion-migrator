@@ -95,6 +95,10 @@
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
         <sonar.verbose>true</sonar.verbose>
         <sonar.qualitygate.wait>true</sonar.qualitygate.wait>
+        <!-- Workflow files use intentional @main refs for our own org's reusable workflows
+             (enforced by zizmor's SchweizerischeBundesbahnen/* allowance); exclude them from
+             Sonar so its GitHub Actions analysis doesn't flag those as unreviewed hotspots. -->
+        <sonar.exclusions>.github/**</sonar.exclusions>
 
         <plexus-container-default.version>2.1.1</plexus-container-default.version>
     </properties>

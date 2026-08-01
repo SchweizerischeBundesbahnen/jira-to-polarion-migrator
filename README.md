@@ -13,6 +13,11 @@
 
 This CLI tool is designed for migration Jira cucumber test cases to Polarion.
 
+> [!IMPORTANT]
+> **This repository is archived and read-only.**
+> The migrator is not currently needed and has not been verified against current Jira and Polarion versions, so development is paused rather than finished — it may be picked up again if the need returns.
+> The code and the last release stay available; expect no issues, pull requests or releases meanwhile, and validate it against your own versions before relying on it.
+
 ## Build
 
 Jira to Polarion Migrator can be produced using maven:
